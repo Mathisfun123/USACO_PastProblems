@@ -5,9 +5,10 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
-
+//Bronze Dec 19 #1
 public class gymnastics {
 	public static void main(String[] args) throws FileNotFoundException {
+		//Storing Input
 		Scanner sc = new Scanner(new File("gymnastics" + ".in"));
 		PrintWriter out = new PrintWriter(new File("gymnastics.out"));
 		int k = sc.nextInt();
@@ -20,6 +21,7 @@ public class gymnastics {
 			}
 		}
 		//N*N-1 number of times the loop will run --> O(N^2) at best
+		//Good enough for Bronze
 		int numtimes = 0;
 		for(int first= 1; first<= n; first++){
 			for(int second = 1; second<=n; second++){
@@ -50,10 +52,7 @@ public class gymnastics {
 				counter++;
 			}
 		}
-		if(counter==k){
-			return true;
-		}else{
-			return false;
-		}
+		//has to match condition all the rows
+		return counter==k;
 	}
 }
