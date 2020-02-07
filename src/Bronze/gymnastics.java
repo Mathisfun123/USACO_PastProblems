@@ -1,3 +1,5 @@
+package Bronze;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -9,8 +11,8 @@ import java.util.Scanner;
 public class gymnastics {
 	public static void main(String[] args) throws FileNotFoundException {
 		//Storing Input
-		Scanner sc = new Scanner(new File("gymnastics" + ".in"));
-		PrintWriter out = new PrintWriter(new File("gymnastics.out"));
+		Scanner sc = new Scanner(new File("gymnastics.in"));
+		PrintWriter out = new PrintWriter(new File("Bronze.gymnastics.out"));
 		int k = sc.nextInt();
 		int n = sc.nextInt();
 		sc.nextLine();
