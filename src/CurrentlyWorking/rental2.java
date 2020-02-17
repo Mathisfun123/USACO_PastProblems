@@ -1,9 +1,11 @@
+package CurrentlyWorking;
+
 import java.io.*;
 import java.util.*;
 public class rental2 {
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("rental.in"));
-		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("rental.out")));
+		BufferedReader br = new BufferedReader(new FileReader("CurrentlyWorking.rental.in"));
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("CurrentlyWorking.rental.out")));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());

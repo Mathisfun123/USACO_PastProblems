@@ -1,3 +1,5 @@
+package CurrentlyWorking;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -11,7 +13,7 @@ public class rental {
 		//need to simplify on feb 14 (lol valentetine)
 		//giving wrong answers for 3, 4, 5, 6, 8, 9, 10
 		//simplify then see what happens
-		Scanner sc = new Scanner(new File("rental" + ".in"));
+		Scanner sc = new Scanner(new File("CurrentlyWorking.rental" + ".in"));
 		int n = sc.nextInt();
 		int m = sc.nextInt();
 		int r =sc.nextInt();
@@ -39,7 +41,7 @@ public class rental {
 			renting[i]= sc.nextLong();
 		} Arrays.sort(renting,Collections.reverseOrder());
 		//try with renting all and want to use bad cows
- 
+
 		long totalrenting [] = new long[r]; //sum up benefits
 		totalrenting[0]= renting[0];
 		for(int i = 1; i< r; i++){
@@ -75,7 +77,7 @@ public class rental {
 			maxbenefit= Math.max(maxbenefit, (milkingpricetotal+benefitifromrenting));
 
 		}
-		PrintWriter out = new PrintWriter(new File ("rental.out"));
+		PrintWriter out = new PrintWriter(new File ("CurrentlyWorking.rental.out"));
 		out.println(maxbenefit);
 		out.close();
 
