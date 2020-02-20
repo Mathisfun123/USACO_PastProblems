@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class berries {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File("berries.in"));
-		PrintWriter out = new PrintWriter("CurrentlyWorking.berries.out");
+		PrintWriter out = new PrintWriter("berries.out");
 		int n = sc.nextInt();
 		int k = sc.nextInt();
 		int [] berries = new int[n];
