@@ -1,5 +1,3 @@
-package CurrentlyWorking;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
-
+//main idea of what was wrong: assuming that always think about splitting berrie trees in half, forgot to think about getting odd number of baskets per tree
 public class berries {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File("berries.in"));
