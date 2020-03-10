@@ -1,3 +1,5 @@
+package RandomFiles;
+
 import java.util.*;
 import java.awt.*;
 import java.io.*;
@@ -9,7 +11,7 @@ public class spacetrader
 	static char startingPlant; static int max;
 	public static void main(String[] args) throws Exception
 	{
-		Scanner fromFile = new Scanner(new File("spacetrader.dat"));
+		Scanner fromFile = new Scanner(new File("RandomFiles.spacetrader.dat"));
 
 		startingPlant = fromFile.nextLine().charAt(0);
 

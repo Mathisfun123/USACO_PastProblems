@@ -1,10 +1,12 @@
+package Bronze;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
 public class lineup2 {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("lineup" + ".in"));
+		Scanner sc = new Scanner(new File("Bronze.lineup" + ".in"));
 		int n = sc.nextInt();
 		sc.nextLine();
 		String[] arr = {"Beatrice", "Belinda","Bella","Bessie", "Betsy", "Blue","Buttercup","Sue"};
