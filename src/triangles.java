@@ -19,9 +19,9 @@ public class triangles {
 					for(int k = 0; k<xvals.length; k++){
 						if(j!=k&&xvals[j]==xvals[k]){
 							int maxArea1 = (Math.abs(xvals[i] - xvals[j])) * (Math.abs(yvals[k] - yvals[j]));
-							if(maxArea1 >maxArea){
-								maxArea = maxArea1;
-							}
+							maxArea+=maxArea1;
+							maxArea%= Math.pow(10,9)+ 7;
+
 						}
 					}
 				}
