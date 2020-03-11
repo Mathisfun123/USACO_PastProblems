@@ -2,8 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class swap {
 	public static void main(String[] args) throws FileNotFoundException {
@@ -22,15 +21,52 @@ public class swap {
 		}
 //		System.out.println(Arrays.toString(x));
 		PrintWriter out = new PrintWriter(new File("swap.out"));
+		//time to start analyzing cycles
+		int[] minimumxforindic = new int[n]; 
+		Set<Integer> valsmissing = new HashSet<Integer>();
 		for(int i = 0; i< n; i++){
 			if(x[i]==i){
-				out.println(i+1);
+				minimumxforindic[i]= 1; 
 			}else{
-				int val = x[i];
-				for(int j = 1;j< k; j++ ){
-					val = x[val];
+				valsmissing.add(i);
+				minimumxforindic[i]= Integer.MAX_VALUE; 
+			}
+		}
+		int runs = 1; //counts the number of times we've done the moves  
+		ArrayList<int[]> arraysAfterIterations = new ArrayList<>();
+		arraysAfterIterations.add(x);
+		while(valsmissing.size()>0 && runs<k){
+			int[] lastarr = arraysAfterIterations.get(runs-1);
+			int[] newarr=  new int[n];
+			runs++;
+			for(int j = 0; j< n; j++){
+				newarr[j]= lastarr[lastarr[j]]; 
+				if(newarr[j]== j && valsmissing.contains(j)){
+					valsmissing.remove(new Integer(j)); 
+					minimumxforindic[j] = runs; 
 				}
-				out.println(val+1);
+			}
+			arraysAfterIterations.add(newarr);
+		}
+		System.out.println(Arrays.toString(minimumxforindic));
+		for (int[] i: arraysAfterIterations){
+			System.out.println(Arrays.toString(i));
+		}
+		for(int i = 0; i< n; i++){
+			if(minimumxforindic[i]== Integer.MAX_VALUE){
+				//couldn't use cycle technique but can use last element of iterations value
+				out.println(arraysAfterIterations.get(k-1)[i]+1);
+			}else{
+				int stepsaftermod= k%minimumxforindic[i];
+				if(stepsaftermod> 0){
+					stepsaftermod --; //accounting for original being no step change
+					out.println(arraysAfterIterations.get(stepsaftermod)[i]+1);
+
+				}else{
+					out.println(i+1);
+				}
+				System.out.println(stepsaftermod + " " + arraysAfterIterations.get(stepsaftermod)[i]);
+
 			}
 		}
 
