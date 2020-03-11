@@ -25,6 +25,7 @@ public class Solution {
 				}
 			}
 			for(int i = 0; i < n; i++) to[i] = l[i];
+			//creates a copy of the array after one iteration
 		}
 		int[] ret = new int[n];
 		for(int i = 0; i < n; i++) ret[i] = i+1;
