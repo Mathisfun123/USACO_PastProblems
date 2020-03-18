@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class triangles {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("Feb_2020NP.RandomFiles.triangles" + ".in"));
+		Scanner sc = new Scanner(new File("Feb_2020NP.RandomFiles.CurrentlyWorking.triangles" + ".in"));
 		int n =sc.nextInt();
 		int [] X = new int[n];
 		int [] Y = new int[n];
@@ -47,7 +47,7 @@ public class triangles {
 				}
 			}
 		}
-		PrintWriter out = new PrintWriter(new File("Feb_2020NP.RandomFiles.triangles.out"));
+		PrintWriter out = new PrintWriter(new File("C:\\Users\\saiku\\IdeaProjects\\CodeIn\\CurrentlyWorking.triangles.out"));
 		out.println((int)(area%(Math.pow(10,9)+7)));
 		out.close();
 

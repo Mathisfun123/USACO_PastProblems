@@ -1,10 +1,11 @@
+package Feb_2020_NP;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class swap {
+public class swap3 {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File("swap" + ".in"));
 		PrintWriter out = new PrintWriter(new File("swap.out"));

@@ -1,4 +1,4 @@
-//Training Page: 1.4 Prime Crypt - Trial 1
+package CurrentlyWorking;//Training Page: 1.4 Prime Crypt - Trial 1
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
@@ -10,7 +10,7 @@ public class crypt1 {
 	static Set<Integer> s;
 	static Set<String> p;
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("crypt1" + ".in"));
+		Scanner sc = new Scanner(new File("CurrentlyWorking.crypt1" + ".in"));
 		int n = sc.nextInt();
 		int[] arr = new int[n];
 		s = new HashSet<>();

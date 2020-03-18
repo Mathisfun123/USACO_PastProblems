@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class triangles {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("triangles" + ".in"));
+		Scanner sc = new Scanner(new File("CurrentlyWorking.triangles" + ".in"));
 		int n = sc.nextInt();
 		HashMap<Integer, ArrayList<Integer>> XVals = new HashMap<>();
 		HashMap<Integer, ArrayList<Integer>> YVals = new HashMap<>();

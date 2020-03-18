@@ -1,10 +1,12 @@
+package Bronze;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class breedflip {
 	public static void main(String[] args) throws IOException {
-		Scanner sc = new Scanner(new File("breedflip.in"));
+		Scanner sc = new Scanner(new File("Bronze.breedflip.in"));
 		int n = sc.nextInt(); sc.nextLine();
 		String a = sc.nextLine();
 		String b = sc.nextLine();
@@ -47,7 +49,7 @@ public class breedflip {
 //			}
 //			numTimes++;
 //		}
-		PrintWriter out = new PrintWriter(new File("breedflip.out"));
+		PrintWriter out = new PrintWriter(new File("Bronze.breedflip.out"));
 		out.println(ans);
 		out.close();
 	}
