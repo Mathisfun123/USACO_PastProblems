@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 //brute force method: 3/12 -- too slow because need to stop after intersecting once
-
+//run 2: still times out on 3/12 but better time
 public class cowjump {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File("cowjump" + ".in"));
@@ -16,6 +16,8 @@ public class cowjump {
 			arr[i] = new LineSegment(sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt());
 		}
 		int[] intersections = new int[n];
+		int oneposs=-1,otherposs=-1;
+		loop:
 		for(int i = 0; i< n; i++){
 			for(int j = i+1; j< n; j++){
 				//going to check if these two LineSegments intersect -> if they intersect then both spots get counter ++
@@ -23,15 +25,28 @@ public class cowjump {
 				if(interesect(arr[i],arr[j])){
 					intersections[i]++;
 					intersections[j]++;
+					oneposs= i;
+					otherposs= j;
+					break loop;
 				}
 			}
 		}
-		int max = -1; int pos = -1;
+
 		for(int i = 0; i< n; i++){
-			if(intersections[i]>max){
-				max = intersections[i];
-				pos = i;
+			//first checking if oneposs is intersecting
+			if (i != oneposs && i != otherposs) {
+				if(interesect(arr[i],arr[oneposs])){
+					intersections[oneposs]++;
+				}else if(interesect(arr[i],arr[otherposs])){
+					intersections[otherposs]++;
+				}
 			}
+		}
+		int pos = -1;
+		if(intersections[otherposs]>intersections[oneposs]){
+			pos = otherposs;
+		}else{
+			pos = oneposs;
 		}
 		PrintWriter out = new PrintWriter(new File("cowjump.out"));
 		out.println(pos+1);
