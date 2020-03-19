@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 //had to look at the official guide to get the around 2-8 test cases (thought it was best to flip when multiple cow on axes instead of multiple in a unknown spot)
-
+//ooooh for the 11th test case, you can only use one spot
 //summary: flip first row and column in case of 1's and then
 public class leftout {
 	public static void main(String[] args) throws FileNotFoundException {
@@ -73,19 +73,24 @@ public class leftout {
 		}
 		if(ln==null){
 			boolean reached1= false;
-			for(int i = 0; i< n; i++){
-				System.out.println(Arrays.toString(arr[i]));
-			}
-			for(int i = 0; i< n && !reached1; i++){
-				for(int j = 0; j< n&& !reached1; j++){
+			boolean reached2= false;
+			for(int i = 0; i< n && !reached2; i++){
+				for(int j = 0; j< n&& !reached2; j++){
 					if(arr[i][j]==1){
-						out.println((i+1)+ " " + (j+1));
-						reached1= true;
+						if(!reached1) {
+							ln = ((i + 1) + " " + (j + 1));
+							reached1 = true;
+						}else{
+							reached2= true;
+							ln = null;
+						}
 					}
 				}
 			}
-			if(!reached1) {
+			if(!reached1|| ln==null) {
 				out.println(-1);
+			}else{
+				out.println(ln);
 			}
 		}else{
 			out.println(ln);
