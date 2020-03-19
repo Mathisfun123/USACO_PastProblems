@@ -1,3 +1,5 @@
+package Mar_2019_NA;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -8,8 +10,8 @@ import java.util.Scanner;
 //summary: flip first row and column in case of 1's and then
 public class leftout {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("leftout" + ".in"));
-		PrintWriter out = new PrintWriter(new File("leftout.out"));
+		Scanner sc = new Scanner(new File("Mar_2019_NA.leftout" + ".in"));
+		PrintWriter out = new PrintWriter(new File("Mar_2019_NA.leftout.out"));
 		int n = sc.nextInt();
 		sc.nextLine();
 		int arr[][] = new int[n][n];
