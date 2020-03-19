@@ -7,9 +7,16 @@ import java.util.*;
 public class TestClass {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		String s = "a70 and z72 will be replaced, but aa24 and a872 will not";
-		s= s.replaceAll("[a-z][0-9][0-9][ ]","*** ");
-		System.out.println(s);
+		//time to test if two lines intersect based on endpoints
+//		int x0= 0; int y0 = 0;
+//		int x1= 2; int y1= 0;
+//		int x2= 2; int y2 =1;
+//		int x3 =2; int y3 = 2;
+//		System.out.println(interesect(x0, y0, x1, y1, x2, y2, x3, y3));
+		Scanner sc = new Scanner(new File("C:\\Users\\saiku\\IdeaProjects\\CodeIn\\berries.in"));
+		int a = sc.nextInt();
+		String b = sc.nextLine();
+		System.out.println(a+b);
 
 	}
 	public static int[] reverse(int arr[], int l, int r){
@@ -20,6 +27,19 @@ public class TestClass {
 			arr[r-(b-l)] = temp;
 		}
 		return arr;
+	}
+	public static int interesect(int x0, int y0, int x1, int y1, int x2, int y2, int x3, int y3){
+		double s1x = x1-x0; double s1y = y1 - y0;
+		double s2x = x3-x2; double s2y = y3 - y2;
+		double s =  (-s1y * (x0 - x2) + s1x * (y0 - y2)) / (-s2x * s1y + s1x * s2y);
+		double t = ( s2x * (y0 - y2) - s2y * (x0 - x2)) / (-s2x * s1y + s1x * s2y);
+		if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+		{
+
+			return 1;
+		}
+
+		return 0; // No collision
 	}
 //	public static boolean digitsInS(int num){
 //		String string = Integer.toString(num);
