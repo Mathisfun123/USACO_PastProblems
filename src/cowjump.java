@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 //brute force method: 3/12 -- too slow because need to stop after intersecting once
-//run 2: still times out on 3/12 but better time
+//run 2: still times out on 4/12 but better time (suddenly got 11th test case)
 public class cowjump {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File("cowjump" + ".in"));
@@ -42,7 +42,7 @@ public class cowjump {
 				}
 			}
 		}
-		int pos = -1;
+		int pos;
 		if(intersections[otherposs]>intersections[oneposs]){
 			pos = otherposs;
 		}else{
@@ -67,14 +67,9 @@ public class cowjump {
 		int x2= line2.xbeg; int y2= line2.ybeg; int x3 = line2.xend; int y3 = line2.yend;
 		double s1x = x1-x0; double s1y = y1 - y0;
 		double s2x = x3-x2; double s2y = y3 - y2;
-		double s =  (-s1y * (x0 - x2) + s1x * (y0 - y2)) / (-s2x * s1y + s1x * s2y);
-		double t = ( s2x * (y0 - y2) - s2y * (x0 - x2)) / (-s2x * s1y + s1x * s2y);
-		if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
-		{
-
-			return true;
-		}
-
-		return false; // No collision
+		double v = -s2x * s1y + s1x * s2y;
+		double s =  (-s1y * (x0 - x2) + s1x * (y0 - y2)) / v;
+		double t = ( s2x * (y0 - y2) - s2y * (x0 - x2)) / v;
+		return s >= 0 && s <= 1 && t >= 0 && t <= 1;// No collision
 	}
 }
