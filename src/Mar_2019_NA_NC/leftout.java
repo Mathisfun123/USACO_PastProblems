@@ -1,9 +1,8 @@
-package Mar_2019_NA;
+package Mar_2019_NA_NC;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Scanner;
 //had to look at the official guide to get the around 2-8 test cases (thought it was best to flip when multiple cow on axes instead of multiple in a unknown spot)
 //ooooh for the 11th test case, you can only use one spot

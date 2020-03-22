@@ -1,3 +1,5 @@
+package Mar_2017_NA_NC;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -8,7 +10,7 @@ import java.util.Scanner;
 //heavy emphasis on duplicates as special part
 public class pairup {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("pairup" + ".in"));
+		Scanner sc = new Scanner(new File("Mar_2019_NA_NC.pairup" + ".in"));
 		int n = sc.nextInt();
 		ArrayList<Pair> values = new ArrayList<>(n);
 		for(int i = 0; i< n; i++){
@@ -39,7 +41,7 @@ public class pairup {
 				j--;
 			}
 		}
-		PrintWriter out = new PrintWriter(new File("pairup.out"));
+		PrintWriter out = new PrintWriter(new File("Mar_2019_NA_NC.pairup.out"));
 		out.println(m);
 		out.close();
 

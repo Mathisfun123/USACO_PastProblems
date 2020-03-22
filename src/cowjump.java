@@ -2,10 +2,7 @@ import javax.sound.sampled.Line;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 //brute force method: 3/12 -- too slow because need to stop after intersecting once
 //run 2: still times out on 4/12 but better time (suddenly got 11th test case)
@@ -37,31 +34,35 @@ public class cowjump {
 		int[] intersections = new int[n];
 		int oneposs=-1,otherposs=-1;
 		System.out.println(Arrays.toString(arr));
-		HashSet<Integer> current = new HashSet<>();
-		for(int i = min; i<= max; i++){
+		List<LineSegment> currentlyAdded = new ArrayList<>();
+		HashMap<Integer, ArrayList<LineSegment>> endXvalforcurrent = new HashMap<>();
+		int lastposs = 0;
+		for(int i = min; i<=max; i ++){
+			if(endXvalforcurrent.containsKey(i)){
+				ArrayList<LineSegment> t = endXvalforcurrent.get(i);
+				for(LineSegment p: t){
+					currentlyAdded.remove(p);
+				}
+			}
+			if(arr[lastposs].xbeg==i){
+				for(LineSegment p: currentlyAdded){
+					if(interesect(p, arr[lastposs])){
+						oneposs=lastposs;
+					}
+				}
+				currentlyAdded.add(arr[lastposs]);
 
+			}
 		}
-
-
-//		for(int i = 0; i< n; i++){
-//			//first checking if oneposs is intersecting
-//			if (i != oneposs && i != otherposs) {
-//				if(interesect(arr[i],arr[oneposs])){
-//					intersections[oneposs]++;
-//				}else if(interesect(arr[i],arr[otherposs])){
-//					intersections[otherposs]++;
-//				}
-//			}
-//		}
-//		int pos;
-//		if(intersections[otherposs]>intersections[oneposs]){
-//			pos = otherposs;
-//		}else{
-//			pos = oneposs;
-//		}
 //		PrintWriter out = new PrintWriter(new File("cowjump.out"));
 //		out.println(pos+1);
-//		out.close();
+//		out.close();`
+	}
+	static class Point{
+		int x,y,i;
+		public Point(int xv, int yv){
+			x= xv; y =yv;
+		}
 	}
 	static class LineSegment implements Comparable{
 		int xbeg; int ybeg;
