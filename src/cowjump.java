@@ -1,5 +1,3 @@
-import javax.sound.sampled.Line;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -35,40 +33,47 @@ public class cowjump {
 			}
 		}
 		Arrays.sort(arr);
-		HashSet<Point> lineSegmentsCurrent= new HashSet<>();
+		ArrayList<Point> lineSegmentsCurrent= new ArrayList<>();
 		Point onepoint = null; Point otherpoint = null;
+		int arri = -1; int arri2= -1;
 		int[] intersections = new int[n];
 		loop:
 		for(int i = 0; i<2*n; i++){
 			if(arr[i].additionAction){
-				//scan if intersect with anything else
-				for(Point p: lineSegmentsCurrent){
-					if(interesect(arr[i], p)){
-						intersections[arr[i].i]++; intersections[p.i]++;
-						if(onepoint!=null){
-							break loop;  // you know that there is only one line segment to remove
-						}else {
-							onepoint = arr[i];
-							otherpoint = p;
-						}
+				int index = Collections.binarySearch(lineSegmentsCurrent,arr[i],Point::compareTo);
+				if (index < 0) {
+					index = -index - 1;
+				}
+				//scan if intersect with neighbors --> if it does then scan rest
+				if(lineSegmentsCurrent.size()>index &&lineSegmentsCurrent.size()!=0){
+					if(interesect(lineSegmentsCurrent.get(index), arr[i])){
+						onepoint= arr[i]; otherpoint= lineSegmentsCurrent.get(index);
+						arri= i; arri2= index;
+						break loop;
 					}
 				}
-				lineSegmentsCurrent.add(arr[i]);
+				if(index-1>=0){
+					if(interesect(lineSegmentsCurrent.get(index-1), arr[i])){
+						onepoint= arr[i]; otherpoint= lineSegmentsCurrent.get(index-1);
+						arri= i; arri2= index-1;
+						break loop;
+					}
+				}
+				lineSegmentsCurrent.add(index, arr[i]);
 			}
 			if(!arr[i].additionAction){
 				//means we have to remove this point (linesegment containing this point )
-				if(onepoint!=null){
-					if(arr[i]==onepoint && !lineSegmentsCurrent.contains(otherpoint)){
-						break loop;  //if this was the last line segment we're looking at to remove
-					}
-				}
 				lineSegmentsCurrent.remove(arr[i]);
 			}
 		}
+		//scan for onepoint
 
 
 
 
+		System.out.println(intersections[onepoint.i] + " " + intersections[otherpoint.i]);
+		System.out.println(onepoint);
+		System.out.println(otherpoint);
 
 
 		PrintWriter out = new PrintWriter(new File("cowjump.out"));

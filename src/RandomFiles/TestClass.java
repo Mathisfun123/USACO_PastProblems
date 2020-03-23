@@ -7,16 +7,18 @@ import java.util.*;
 public class TestClass {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		//time to test if two lines intersect based on endpoints
-//		int x0= 0; int y0 = 0;
-//		int x1= 2; int y1= 0;
-//		int x2= 2; int y2 =1;
-//		int x3 =2; int y3 = 2;
-//		System.out.println(interesect(x0, y0, x1, y1, x2, y2, x3, y3));
-		Scanner sc = new Scanner(new File("C:\\Users\\saiku\\IdeaProjects\\CodeIn\\berries.in"));
-		int a = sc.nextInt();
-		String b = sc.nextLine();
-		System.out.println(a+b);
+		ArrayList<Integer> s = new ArrayList<>();
+		s.add(1);
+
+		int index = Collections.binarySearch(s, 2, Integer::compareTo);
+		if (index < 0) {
+			index = -index - 1;
+		}
+		System.out.println(index);
+		System.out.println(index-1);
+
+
+
 
 	}
 	public static int[] reverse(int arr[], int l, int r){
