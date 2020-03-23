@@ -35,31 +35,42 @@ public class cowjump {
 			}
 		}
 		Arrays.sort(arr);
-		int lastposs = 0;
-		HashSet<Point> currentSegments = new HashSet<>();
-		int[] intersections = new int[n];
+		HashSet<Point> lineSegmentsCurrent= new HashSet<>();
 		Point onepoint = null; Point otherpoint = null;
-		for(int i = min;i<=max && lastposs!=2*n && (otherpoint==null|| (currentSegments.contains(onepoint)||currentSegments.contains(otherpoint)));i++){
-			if(arr[lastposs].x==i){
-				//this means we need to do something
-				if(!arr[lastposs].additionAction){
-					currentSegments.remove(arr[lastposs].pair);
-				}
-				if(arr[lastposs].additionAction){
-					for(Point p: currentSegments){
-						if(interesect(arr[lastposs],p)){
-							intersections[arr[lastposs].i]++; intersections[p.i]++;
-							onepoint = arr[lastposs]; otherpoint= p;
+		int[] intersections = new int[n];
+		loop:
+		for(int i = 0; i<2*n; i++){
+			if(arr[i].additionAction){
+				//scan if intersect with anything else
+				for(Point p: lineSegmentsCurrent){
+					if(interesect(arr[i], p)){
+						intersections[arr[i].i]++; intersections[p.i]++;
+						if(onepoint!=null){
+							break loop;  // you know that there is only one line segment to remove
+						}else {
+							onepoint = arr[i];
+							otherpoint = p;
 						}
 					}
-					currentSegments.add(arr[lastposs]);
 				}
-				lastposs++;
+				lineSegmentsCurrent.add(arr[i]);
 			}
-			if(lastposs!= 2*n && arr[lastposs].x ==i){
-				i--;
+			if(!arr[i].additionAction){
+				//means we have to remove this point (linesegment containing this point )
+				if(onepoint!=null){
+					if(arr[i]==onepoint && !lineSegmentsCurrent.contains(otherpoint)){
+						break loop;  //if this was the last line segment we're looking at to remove
+					}
+				}
+				lineSegmentsCurrent.remove(arr[i]);
 			}
 		}
+
+
+
+
+
+
 		PrintWriter out = new PrintWriter(new File("cowjump.out"));
 		if(onepoint==null){
 			out.println(-1);
