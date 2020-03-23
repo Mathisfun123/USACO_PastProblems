@@ -48,14 +48,15 @@ public class cowjump {
 				if(lineSegmentsCurrent.size()>index &&lineSegmentsCurrent.size()!=0){
 					if(interesect(lineSegmentsCurrent.get(index), arr[i])){
 						onepoint= arr[i]; otherpoint= lineSegmentsCurrent.get(index);
-						arri= i; arri2= index;
+						arri= i; arri2= Arrays.binarySearch(arr,lineSegmentsCurrent.get(index));
 						break loop;
 					}
 				}
 				if(index-1>=0){
 					if(interesect(lineSegmentsCurrent.get(index-1), arr[i])){
 						onepoint= arr[i]; otherpoint= lineSegmentsCurrent.get(index-1);
-						arri= i; arri2= index-1;
+						System.out.println("Hello");
+						arri= i; arri2= Arrays.binarySearch(arr,lineSegmentsCurrent.get(index-1));
 						break loop;
 					}
 				}
@@ -66,14 +67,12 @@ public class cowjump {
 				lineSegmentsCurrent.remove(arr[i]);
 			}
 		}
-		//scan for onepoint
+		//need to fix the issue of picking the correct point out of onepoint or otherpoint
 
 
 
-
-		System.out.println(intersections[onepoint.i] + " " + intersections[otherpoint.i]);
-		System.out.println(onepoint);
-		System.out.println(otherpoint);
+		System.out.println(onepoint+ " " + otherpoint);
+		System.out.println(arr[arri] + " "+ arr[arri2]);
 
 
 		PrintWriter out = new PrintWriter(new File("cowjump.out"));
