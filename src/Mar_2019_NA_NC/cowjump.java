@@ -1,3 +1,5 @@
+package Mar_2019_NA_NC;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,7 +9,7 @@ import java.util.*;
 //run 2: still times out on 4/12 but better time (suddenly got 11th test case)
 public class cowjump {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("cowjump" + ".in"));
+		Scanner sc = new Scanner(new File("Mar_2019_NA_NC.cowjump" + ".in"));
 		int n = sc.nextInt();
 		sc.nextLine();
 		Point[] arr = new Point[2*n];
@@ -75,7 +77,7 @@ public class cowjump {
 		System.out.println(arr[arri] + " "+ arr[arri2]);
 
 
-		PrintWriter out = new PrintWriter(new File("cowjump.out"));
+		PrintWriter out = new PrintWriter(new File("Mar_2019_NA_NC.cowjump.out"));
 		if(onepoint==null){
 			out.println(-1);
 		}else if(intersections[onepoint.i]>=intersections[otherpoint.i]){

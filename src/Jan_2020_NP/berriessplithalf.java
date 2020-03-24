@@ -1,14 +1,13 @@
-package Jan_2020_NP;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class berriessplithalf {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("Jan_2020_NP.berries" + ".in"));
+		Scanner sc = new Scanner(new File("berries" + ".in"));
 		int n = sc.nextInt();
 		int k = sc.nextInt();
 		int[] trees = new int[n];
@@ -111,8 +110,9 @@ public class berriessplithalf {
 				}
 			}
 		}
-		System.out.println(bessie);
-		System.out.println(elsie);
+		PrintWriter out = new PrintWriter(new File("berries.out"));
+		out.println(bessie);
+		//System.out.println(elsie);
 
 	}
 }

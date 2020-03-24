@@ -8,13 +8,18 @@ import java.util.*;
 public class TestClass {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Hi v1 = new Hi(1,2);
-		Hi v2 = new Hi(3,4);
-		Hi v3 = new Hi(5, 6);
-		v2.combine(v1); v1 =v2;
-		v1.combine(v3); v3= v1;
-		System.out.println(v1);
-		System.out.println(v2);
+		Hi[] arr = new Hi[3];
+		for(int i= 0; i<3; i++){
+			arr[i] = new Hi(2*i+1,2*i+2);
+		}
+		arr[1].combine(arr[0]); arr[0] = arr[1];
+		arr[2].combine(arr[0]); arr[0]= arr[2];
+		System.out.println(arr[0]);
+		System.out.println(arr[1]);
+		System.out.println(arr[2]);
+
+
+
 
 
 
