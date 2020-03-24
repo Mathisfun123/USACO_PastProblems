@@ -1,3 +1,5 @@
+package Mar_2019_NA_NC;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -5,7 +7,7 @@ import java.util.Scanner;
 
 public class fenceplan {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("fenceplan" + ".in"));
+		Scanner sc = new Scanner(new File("Mar_2019_NA_NC.fenceplan" + ".in"));
 		int n =sc.nextInt(); int m = sc.nextInt();
 		Point [] arr= new Point[n];
 		for(int i= 0; i< n; i++){
