@@ -1,5 +1,6 @@
 package RandomFiles;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -7,15 +8,13 @@ import java.util.*;
 public class TestClass {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		ArrayList<Integer> s = new ArrayList<>();
-		s.add(1);
-
-		int index = Collections.binarySearch(s, 2, Integer::compareTo);
-		if (index < 0) {
-			index = -index - 1;
-		}
-		System.out.println(index);
-		System.out.println(index-1);
+		Hi v1 = new Hi(1,2);
+		Hi v2 = new Hi(3,4);
+		Hi v3 = new Hi(5, 6);
+		v2.combine(v1); v1 =v2;
+		v1.combine(v3); v3= v1;
+		System.out.println(v1);
+		System.out.println(v2);
 
 
 
@@ -52,4 +51,22 @@ public class TestClass {
 //		}
 //		return true;
 //	}
+	static class Hi{
+		public int a, b;
+		public Hi(int a1, int b1){
+			a = a1; b = b1;
+		}
+		public void combine(Hi p){
+			a = Math.min(a,p.a);
+			b = Math.max(b, p.b);
+		}
+
+	@Override
+	public String toString() {
+		return "Hi{" +
+				"a=" + a +
+				", b=" + b +
+				'}';
+	}
+}
 }
