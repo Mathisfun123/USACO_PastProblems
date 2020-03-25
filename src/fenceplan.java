@@ -9,10 +9,8 @@ public class fenceplan {
 		Scanner sc = new Scanner(new File("fenceplan" + ".in"));
 		int n =sc.nextInt(); int m = sc.nextInt();
 		Point[] arr= new Point[n];
-		Stack<Point> allOriginPoints = new Stack<>();
 		for(int i= 0; i< n; i++){
 			arr[i] = new Point(sc.nextInt(), sc.nextInt(),i);
-			allOriginPoints.add(arr[i]);
 		}
 		for(int i = 0; i< m; i++){
 			int abi = sc.nextInt()-1; int bci= sc.nextInt()-1;
@@ -21,34 +19,33 @@ public class fenceplan {
 		}
 
 		TreeSet<Point> endvalues = new TreeSet<>();
+		boolean[] visited = new boolean[n];
 		//look through with the queue and form links
-		while(!allOriginPoints.isEmpty()) {
-			Stack<Point> values = new Stack<>();
-			Point examine = allOriginPoints.pop();
-			values.add(examine);
-			boolean[] visited = new boolean[n];
-			visited[examine.i] = true;
-			while (!values.isEmpty()) {
-				Point start = values.pop();
-				if(!allOriginPoints.isEmpty()){
-					allOriginPoints.remove(start);
-				}
-				if (!visited[start.i]) {
-					//System.out.println(start);
-					visited[start.i] = true;
-					examine.minx= Math.min(examine.minx, start.minx);
-					examine.miny= Math.min(examine.miny, start.miny);
-					examine.maxx= Math.max(examine.maxx, start.maxx);
-					examine.maxy= Math.max(examine.maxy, start.maxy);
-				}
-				for (Point p : start.links) {
-					if (!visited[p.i]) {
-						values.add(p);
+		for(int i = 0; i< n; i++){
+			Point examine = arr[i];
+			if(!visited[examine.i]) {
+				Stack<Point> values = new Stack<>();
+				values.add(examine); //need base node
+				visited[examine.i] = true;
+				while (!values.isEmpty()) {
+					Point start = values.pop();
+					if (!visited[start.i]) {
+						//System.out.println(start);
+						visited[start.i] = true;
+						examine.minx = Math.min(examine.minx, start.minx);
+						examine.miny = Math.min(examine.miny, start.miny);
+						examine.maxx = Math.max(examine.maxx, start.maxx);
+						examine.maxy = Math.max(examine.maxy, start.maxy);
+					}
+					for (Point p : start.links) {
+						if (!visited[p.i]) {
+							values.add(p);
+						}
 					}
 				}
+				endvalues.add(examine);
+				//System.out.println("Hello "+ examine);
 			}
-			endvalues.add(examine);
-			//System.out.println("Hello "+ examine);
 		}
 		PrintWriter out = new PrintWriter(new File("fenceplan.out"));
 		out.println(endvalues.pollFirst());
