@@ -26,7 +26,7 @@ public class fenceplan {
 			Stack<Point> values = new Stack<>();
 			Point examine = allOriginPoints.pop();
 			values.add(examine);
-			boolean visited[] = new boolean[n];
+			boolean[] visited = new boolean[n];
 			visited[examine.i] = true;
 			while (!values.isEmpty()) {
 				Point start = values.pop();
