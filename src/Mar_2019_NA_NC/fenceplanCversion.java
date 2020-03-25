@@ -1,3 +1,5 @@
+package Mar_2019_NA_NC;
+
 import javax.sound.sampled.Line;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +8,7 @@ import java.util.*;
 
 public class fenceplanCversion {
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("fenceplan" + ".in"));
+		Scanner sc = new Scanner(new File("Mar_2019_NA_NC.fenceplan" + ".in"));
 		int n = sc.nextInt(); int m = sc.nextInt();
 		Point[] arr = new Point[n];
 		ArrayList<Integer> [] connections = new ArrayList[n];
@@ -41,7 +43,7 @@ public class fenceplanCversion {
 				potentials.add(t);
 			}
 		}
-		PrintWriter out = new PrintWriter(new File("fenceplan.out"));
+		PrintWriter out = new PrintWriter(new File("Mar_2019_NA_NC.fenceplan.out"));
 		out.println(potentials.pollFirst());
 		out.close();
 
