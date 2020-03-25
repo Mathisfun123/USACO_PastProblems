@@ -19,7 +19,7 @@ public class fenceplan {
 			Point ab = arr[abi]; Point bc = arr[bci];
 			ab.links.add(bc); bc.links.add(ab);
 		}
-		System.out.println(Arrays.toString(arr));
+
 		TreeSet<Point> endvalues = new TreeSet<>();
 		//look through with the queue and form links
 		while(!allOriginPoints.isEmpty()) {
@@ -69,14 +69,16 @@ public class fenceplan {
 		@Override
 		public int compareTo(Object o) {
 			Point p = (Point) o;
-			return this.maxx- this.minx == p.maxx - p.minx? this.maxy-this.miny - p.maxy + p.miny: this.maxx- this.minx - p.maxx + p.minx;
+			int diff = Math.abs(maxx- minx)  + Math.abs(maxy -miny);
+			int otherdiff= Math.abs(p.maxx-p.minx) +Math.abs(p.maxy- p.miny);
+			return diff- otherdiff;
 		}
 
 
 		@Override
 		public String toString() {
-			//return "" + (2*(Math.abs(maxx-minx)+Math.abs(maxy-miny)));
-			return "Pair" + "{"+x + ", "+ y+"}";
+			return "" + (2*(Math.abs(maxx-minx)+Math.abs(maxy-miny)));
+			//return "Pair" + "{"+x + ", "+ y+"}";
 		}
 	}
 }
