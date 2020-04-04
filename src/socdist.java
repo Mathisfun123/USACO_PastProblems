@@ -1,82 +1,78 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.lang.management.MonitorInfo;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Scanner;
 
-public class socdist {
-	public static Pair[] paris;
+public class socdist{
+	static Pair[] pairs;
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("socdist" + ".in"));
+		Scanner sc = new Scanner(new File("socdist.in"));
 		int n = sc.nextInt(); int m = sc.nextInt();
-		long min = Long.MAX_VALUE; long max = Long.MIN_VALUE;
-		 paris = new Pair[m];
+		pairs = new Pair[m];
+		long lowgrass = Integer.MAX_VALUE; long highgrass = Integer.MIN_VALUE;
 		for(int i = 0; i< m; i++){
-			long a = sc.nextLong();
-			long b = sc.nextLong();
-			min = Math.min(min, a); max = Math.max( max, b);
-			paris[i]= new Pair(a, b);
+			long a = sc.nextInt();
+			long b = sc.nextInt(); long c = Math.min(a,b); b = Math.max(a,b);
+			pairs[i] = new Pair(c,b);
+			if(c< lowgrass){
+				lowgrass= c;
+			}
+			if(b> highgrass){
+				highgrass= b;
+			}
 		}
-		Arrays.sort(paris);
-		long maxdiff = (max-min)/(n-1); long mindist = 1;
-		while(mindist<maxdiff){
-			long mid = (int)((maxdiff +mindist)/2);
+		Arrays.sort(pairs);
+		int lowGuess= 1; int highGuess = (int) ((highgrass-lowgrass)/(n-1));
+		while(highGuess-lowGuess>1){
+			int mid = (lowGuess+highGuess)/2;
 			if(works(mid,n,m)){
-				mindist= mid;
+				lowGuess= mid;
 			}else{
-				maxdiff= mid-1;
+				highGuess= mid -1;
 			}
 		}
-
-
-
-
 		PrintWriter out = new PrintWriter(new File("socdist.out"));
-		out.println(works(mindist+1,n,m)?mindist+1:mindist);
-		out.close();
-	}
-	public static boolean works(long MinDist, int n, int m){
-		//using this as the min distance means we have to move continuously to the right
-		int whichCow = 1; //set left as first cow "0"
-		long pos = paris[0].a;  long maxDist = paris[m-1].b;
-		int currentPair = 0;
-
-		while(whichCow<=n && pos<maxDist){
-			pos = pos+ MinDist;
-			if(paris[currentPair].contains(pos)){
-				whichCow++;
-			}else{
-				//past that interval so need to move on
-				while(currentPair<m && !paris[currentPair].contains(pos)){
-					if(paris[currentPair].a >= pos){
-						pos = paris[currentPair].a;
-						whichCow++;
-					}else{
-						currentPair++;
-					}
-
-					//System.out.println("hello " +MinDist+ ' ' + currentPair + " " + pos + " " + whichCow  + paris[currentPair].contains(pos));
-				}
-			}
+		if(works(highGuess,n,m)){
+			out.println(highGuess);
+		}else{
+			out.println(lowGuess);
 		}
-
-		return whichCow == n - 1;
+		out.close();
 
 	}
 	static class Pair implements Comparable{
 		long a,  b;
-		public Pair(long x, long y){
-			a =x; b = y;
+		public Pair(long v1, long v2){
+			a = v1; b = v2;
 		}
 
 		@Override
 		public int compareTo(Object o) {
-			return (int) (a- ((Pair)o).a);
+			Pair p = (Pair)o;
+			return (int)(a- p.a);
 		}
 		public boolean contains(long val){
-			return val>=a && val<=b;
+			return val >= a && val <= b;
 		}
+	}
+	public static boolean works(int D, int n, int m){
+		long poss = pairs[0].a + D;
+		int cowNum = 1; int pairNumber = 0;
+		while(cowNum< n && pairNumber<m) {
+			if(pairs[pairNumber].contains(poss)){
+				cowNum++; poss+= D;
+			}else {
+				while (pairNumber < m && !pairs[pairNumber].contains(poss)) {
+					if (pairs[pairNumber].a > poss) {
+						poss = pairs[pairNumber].a + D;
+						cowNum++; break;
+					}else{
+						pairNumber++;
+					}
+				}
+			}
+		}
+		return cowNum==n;
 	}
 }
