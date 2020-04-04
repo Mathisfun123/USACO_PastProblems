@@ -29,14 +29,12 @@ public class socdist {
 				maxdiff= mid-1;
 			}
 		}
-		System.out.println(works(2,n,m));
-		System.out.println(works(mindist+1,n,m)?mindist+1:mindist);
 
 
 
 
 		PrintWriter out = new PrintWriter(new File("socdist.out"));
-		out.println(maxdiff);
+		out.println(works(mindist+1,n,m)?mindist+1:mindist);
 		out.close();
 	}
 	public static boolean works(long MinDist, int n, int m){
@@ -46,33 +44,25 @@ public class socdist {
 		int currentPair = 0;
 
 		while(whichCow<=n && pos<maxDist){
-
-			if(paris[currentPair].contains(pos+MinDist)){
-
+			pos = pos+ MinDist;
+			if(paris[currentPair].contains(pos)){
 				whichCow++;
-				pos = pos+MinDist;
 			}else{
-				pos = pos+MinDist; //needs to be a bit greater than that
-
 				//past that interval so need to move on
-				while(!paris[currentPair].contains(pos)){
-					if(paris[currentPair].a>pos){
+				while(currentPair<m && !paris[currentPair].contains(pos)){
+					if(paris[currentPair].a >= pos){
 						pos = paris[currentPair].a;
 						whichCow++;
 					}else{
 						currentPair++;
-						if(currentPair==m){
-							break;
-						}
 					}
-				}
-				if(MinDist==2){
-					System.out.println(whichCow + " "+currentPair+ "gg");return true;
+
+					//System.out.println("hello " +MinDist+ ' ' + currentPair + " " + pos + " " + whichCow  + paris[currentPair].contains(pos));
 				}
 			}
 		}
 
-		return whichCow == n + 1;
+		return whichCow == n - 1;
 
 	}
 	static class Pair implements Comparable{
@@ -86,7 +76,7 @@ public class socdist {
 			return (int) (a- ((Pair)o).a);
 		}
 		public boolean contains(long val){
-			return val>a && val<=b;
+			return val>=a && val<=b;
 		}
 	}
 }
