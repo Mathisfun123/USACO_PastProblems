@@ -33,12 +33,13 @@ public class socdist{
 			}
 		}
 		PrintWriter out = new PrintWriter(new File("socdist.out"));
+
 		if(works(highGuess,n,m)){
 			out.println(highGuess);
 		}else{
 			out.println(lowGuess);
 		}
-		out.close();
+		out.close();;
 
 	}
 	static class Pair implements Comparable{

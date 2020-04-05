@@ -1,50 +1,35 @@
 import java.io.*;
+import java.sql.Time;
 import java.util.*;
 public class Solution {
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("swap.in"));
-		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("swap.out")));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
-		int[] to = new int[n];
-		{
-			int[] l = new int[n];
-			for(int i = 0; i < n; i++) l[i] = i;
-			while(m-- > 0) {
-				st = new StringTokenizer(br.readLine());
-				int a = Integer.parseInt(st.nextToken()) - 1;
-				int b = Integer.parseInt(st.nextToken()) - 1;
-				while(a < b) {
-					int t = l[a];
-					l[a] = l[b];
-					l[b] = t;
-					a++;
-					b--;
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		for(int i = 0; i< n; i++){
+			int m = sc.nextInt();
+			int arr[] = new int[m];
+			for(int j = 0; j< m; j++){
+				arr[j] =sc.nextInt();
+			}
+			long prefixarr[] =new long[m]; prefixarr[0]= arr[0];
+			for (int j = 1; j< m; j++){
+				prefixarr[j] = prefixarr[j-1] + arr[j];
+			}
+			HashMap<Long, Integer> TimesAppear = new HashMap<>();
+			int combos = 0;
+			for(int j = 0; j< m; j++){
+				long val = prefixarr[j]-47; //looking for this value
+				if(TimesAppear.containsKey(val)){
+					combos+= TimesAppear.get(val);
 				}
-			}
-			for(int i = 0; i < n; i++) to[i] = l[i];
-			//creates a copy of the array after one iteration
-		}
-		int[] ret = new int[n];
-		for(int i = 0; i < n; i++) ret[i] = i+1;
-		while(k > 0) {
-			if(k%2 == 1) {
-				ret = apply(ret, to);
-			}
-			k /= 2;
-			if(k > 0) to = apply(to, to);
-		}
-		for(int val: ret) pw.println(val);
-		pw.close();
-	}
+					if(TimesAppear.containsKey(prefixarr[j])){
+						TimesAppear.put(prefixarr[j],TimesAppear.get(prefixarr[j])+1);
+					}else {
+						TimesAppear.put(prefixarr[j], 1);
+					}
 
-	public static int[] apply(int[] l, int[] op) {
-		int[] ret = new int[l.length];
-		for(int i = 0; i < ret.length; i++) {
-			ret[i] = l[op[i]];
+			}
+			System.out.println(combos);
 		}
-		return ret;
 	}
 }
