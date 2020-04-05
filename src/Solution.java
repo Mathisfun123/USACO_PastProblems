@@ -18,16 +18,17 @@ public class Solution {
 			HashMap<Long, Integer> TimesAppear = new HashMap<>();
 			int combos = 0;
 			for(int j = 0; j< m; j++){
-				long val = prefixarr[j]-47; //looking for this value
+				long val = prefixarr[j]- 47;
+
+				if(TimesAppear.containsKey(prefixarr[j])){
+					TimesAppear.put(prefixarr[j],TimesAppear.get(prefixarr[j])+1);
+				}else{
+					TimesAppear.put(prefixarr[j],1);
+				}
+
 				if(TimesAppear.containsKey(val)){
 					combos+= TimesAppear.get(val);
 				}
-					if(TimesAppear.containsKey(prefixarr[j])){
-						TimesAppear.put(prefixarr[j],TimesAppear.get(prefixarr[j])+1);
-					}else {
-						TimesAppear.put(prefixarr[j], 1);
-					}
-
 			}
 			System.out.println(combos);
 		}
