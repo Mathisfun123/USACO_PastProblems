@@ -1,38 +1,64 @@
+//underestimated the efficiency of the dropping and adding --> thought recursive O(n^2)
+// should have just attempted it as it
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class cereal {
+public class cereal{
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("cereal" + ".in"));
+		Scanner sc = new Scanner(new File("cereal.in"));
 		int n = sc.nextInt(); int m = sc.nextInt();
-		Pair [] arr = new Pair[n];
+		Cow[] positions = new Cow[m];
+		Cow[] cowwantings = new Cow[n];
+		int ans[] = new int[n];
 		for(int i = 0; i< n; i++){
-			arr[i]= new Pair(sc.nextInt()-1, sc.nextInt()-1);
+			cowwantings[i] = new Cow(sc.nextInt() -1, sc.nextInt()-1, i);
+		}
+		//stimulate the n-1 cow --> gets first choice
+		positions[cowwantings[n-1].firstChoice]= cowwantings[n-1];
+		int val = 1;  		ans[n-1]= val;
+		for(int i = n-2; i>=0; i--){
+			//include this cow now
+			if(positions[cowwantings[i].firstChoice]!=null){
+				//need to swap
+				Cow cowAtPos = positions[cowwantings[i].firstChoice];
+				boolean canwork = true;
+				while(cowAtPos!=null && canwork){
+					if(positions[cowAtPos.secondChoice]==null){
+						positions[cowAtPos.secondChoice] = cowAtPos;
+						cowAtPos=null;
+						val++;
+					}else{
+						if(positions[cowAtPos.secondChoice].i_val<cowAtPos.i_val){
+							Cow temp  = positions[cowAtPos.secondChoice];
+							positions[cowAtPos.secondChoice] = cowAtPos;
+							cowAtPos= temp;
+						}else{
+							canwork=false;
+						}
+					}
+				}
+
+				positions[cowwantings[i].firstChoice] = cowwantings[i];
+				ans[i]= val;
+			}else{
+				positions[cowwantings[i].firstChoice]= cowwantings[i];
+				ans[i]= ++val;
+			}
 		}
 		PrintWriter out = new PrintWriter(new File("cereal.out"));
 		for(int i = 0; i< n; i++){
-			int bye = 0;
-			boolean [] vistied = new boolean[m];
-			for(int j =i; j< n; j++){
-				if(!vistied[arr[i].a]){
-					vistied[arr[i].a]= true;
-				}else if(!vistied[arr[i].b]){
-					vistied[arr[i].b] = true;
-				}else{
-					bye++;
-				}
-			}
-			out.println(n-i-bye);
+			out.println(ans[i]);
 		}
 		out.close();
+
 	}
-	static class Pair{
-		int a, b;
-		public Pair(int x, int y){
-			a = x; b = y;
+	static class Cow{
+		int firstChoice, secondChoice, i_val;
+		public Cow(int x, int y, int z){
+			firstChoice= x; secondChoice= y; i_val=z;
 		}
 	}
 }

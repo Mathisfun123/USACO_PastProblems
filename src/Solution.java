@@ -17,6 +17,7 @@ public class Solution {
 			}
 			HashMap<Long, Integer> TimesAppear = new HashMap<>();
 			int combos = 0;
+			TimesAppear.put(0L,1);
 			for(int j = 0; j< m; j++){
 				long val = prefixarr[j]- 47;
 
