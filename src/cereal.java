@@ -4,6 +4,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class cereal{
@@ -12,7 +13,7 @@ public class cereal{
 		int n = sc.nextInt(); int m = sc.nextInt();
 		Cow[] positions = new Cow[m];
 		Cow[] cowwantings = new Cow[n];
-		int ans[] = new int[n];
+		int[] ans = new int[n];
 		for(int i = 0; i< n; i++){
 			cowwantings[i] = new Cow(sc.nextInt() -1, sc.nextInt()-1, i);
 		}
@@ -22,16 +23,20 @@ public class cereal{
 		for(int i = n-2; i>=0; i--){
 			//include this cow now
 			if(positions[cowwantings[i].firstChoice]!=null){
-				//need to swap
+				//need to swap --new cow always first priority
 				Cow cowAtPos = positions[cowwantings[i].firstChoice];
 				boolean canwork = true;
+				//finding place for the cow at the old spot
 				while(cowAtPos!=null && canwork){
 					if(positions[cowAtPos.secondChoice]==null){
 						positions[cowAtPos.secondChoice] = cowAtPos;
 						cowAtPos=null;
+//						if(val==87){
+//							System.out.println(Arrays.toString(positions));
+//						}
 						val++;
 					}else{
-						if(positions[cowAtPos.secondChoice].i_val<cowAtPos.i_val){
+						if(positions[cowAtPos.secondChoice].i_val>cowAtPos.i_val){
 							Cow temp  = positions[cowAtPos.secondChoice];
 							positions[cowAtPos.secondChoice] = cowAtPos;
 							cowAtPos= temp;
@@ -45,7 +50,8 @@ public class cereal{
 				ans[i]= val;
 			}else{
 				positions[cowwantings[i].firstChoice]= cowwantings[i];
-				ans[i]= ++val;
+				val++;
+				ans[i]= val;
 			}
 		}
 		PrintWriter out = new PrintWriter(new File("cereal.out"));
@@ -59,6 +65,15 @@ public class cereal{
 		int firstChoice, secondChoice, i_val;
 		public Cow(int x, int y, int z){
 			firstChoice= x; secondChoice= y; i_val=z;
+		}
+
+		@Override
+		public String toString() {
+			return "Cow{" +
+					"firstChoice=" + firstChoice +
+					", secondChoice=" + secondChoice +
+					", i_val=" + i_val +
+					'}';
 		}
 	}
 }
