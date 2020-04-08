@@ -1,3 +1,5 @@
+package Mar_2020_NP;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 public class socdist{
 	static Pair[] pairs;
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("socdist.in"));
+		Scanner sc = new Scanner(new File("Mar_2020_NP.socdist.in"));
 		int n = sc.nextInt(); int m = sc.nextInt();
 		pairs = new Pair[m];
 		long lowgrass = Integer.MAX_VALUE; long highgrass = Integer.MIN_VALUE;
@@ -32,7 +34,7 @@ public class socdist{
 				highGuess= mid -1;
 			}
 		}
-		PrintWriter out = new PrintWriter(new File("socdist.out"));
+		PrintWriter out = new PrintWriter(new File("Mar_2020_NP.socdist.out"));
 
 		if(works(highGuess,n,m)){
 			out.println(highGuess);

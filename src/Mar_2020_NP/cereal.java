@@ -1,15 +1,14 @@
-//underestimated the efficiency of the dropping and adding --> thought recursive O(n^2)
+package Mar_2020_NP;//underestimated the efficiency of the dropping and adding --> thought recursive O(n^2)
 // should have just attempted it as it
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class cereal{
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File("cereal.in"));
+		Scanner sc = new Scanner(new File("Mar_2020_NP.cereal.in"));
 		int n = sc.nextInt(); int m = sc.nextInt();
 		Cow[] positions = new Cow[m];
 		Cow[] cowwantings = new Cow[n];
@@ -31,9 +30,6 @@ public class cereal{
 					if(positions[cowAtPos.secondChoice]==null){
 						positions[cowAtPos.secondChoice] = cowAtPos;
 						cowAtPos=null;
-//						if(val==87){
-//							System.out.println(Arrays.toString(positions));
-//						}
 						val++;
 					}else{
 						if(positions[cowAtPos.secondChoice].i_val>cowAtPos.i_val){
@@ -45,16 +41,14 @@ public class cereal{
 						}
 					}
 				}
-
 				positions[cowwantings[i].firstChoice] = cowwantings[i];
-				ans[i]= val;
 			}else{
 				positions[cowwantings[i].firstChoice]= cowwantings[i];
 				val++;
-				ans[i]= val;
 			}
+			ans[i]= val;
 		}
-		PrintWriter out = new PrintWriter(new File("cereal.out"));
+		PrintWriter out = new PrintWriter(new File("Mar_2020_NP.cereal.out"));
 		for(int i = 0; i< n; i++){
 			out.println(ans[i]);
 		}
