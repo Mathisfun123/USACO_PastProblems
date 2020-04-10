@@ -41,7 +41,7 @@ public class socdist{
 		}else{
 			out.println(lowGuess);
 		}
-		out.close();;
+		out.close();
 
 	}
 	static class Pair implements Comparable{
