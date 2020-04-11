@@ -8,22 +8,34 @@ import java.util.*;
 public class TestClass {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Hi[] arr = new Hi[3];
-		for(int i= 0; i<3; i++){
-			arr[i] = new Hi(2*i+1,2*i+2);
+		PriorityQueue <CompareInts> vals = new PriorityQueue<>();
+		vals.add(new CompareInts(1)); vals.add(new CompareInts(2));
+		System.out.println(vals.poll());
+
+
+
+
+
+
+	}
+	static class CompareInts implements Comparable{
+		int val;
+
+		public CompareInts(int i) {
+			val = i;
 		}
-		arr[1].combine(arr[0]); arr[0] = arr[1];
-		arr[2].combine(arr[0]); arr[0]= arr[2];
-		System.out.println(arr[0]);
-		System.out.println(arr[1]);
-		System.out.println(arr[2]);
 
+		@Override
+		public String toString() {
+			return "CompareInts{" +
+					"val=" + val +
+					'}';
+		}
 
-
-
-
-
-
+		@Override
+		public int compareTo(Object o) {
+			return -val+((CompareInts)o).val;
+		}
 	}
 	public static int[] reverse(int arr[], int l, int r){
 		int temp = 0;
