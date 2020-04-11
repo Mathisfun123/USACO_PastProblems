@@ -40,8 +40,9 @@ public class Kattis {
 			}else{
 				System.out.println("not sure");
 			}
+			sc.nextLine();
 		}
-
+		System.out.println("hello");
 	}
 	static class CompareInts implements Comparable{
 		int val;
