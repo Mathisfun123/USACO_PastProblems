@@ -6,7 +6,7 @@ import java.util.*;
 public class Kattis {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner sc = new Scanner(System.in);
-		while(sc.hasNextLine()) {
+		while(sc.hasNextInt()) {
 			int n = sc.nextInt();
 			Stack<Integer> stack = new Stack<>(); boolean isStack = true;
 			Queue<Integer> queue = new LinkedList<>(); boolean isQueue = true;
@@ -40,9 +40,8 @@ public class Kattis {
 			}else{
 				System.out.println("not sure");
 			}
-			sc.nextLine();
+			if(sc.hasNextLine()) sc.nextLine();
 		}
-		System.out.println("hello");
 	}
 	static class CompareInts implements Comparable{
 		int val;
