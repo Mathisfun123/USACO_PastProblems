@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.math.*;
 import java.security.*;
 import java.text.*;
@@ -11,48 +12,40 @@ public class Solution {
 
 	// Complete the journeyToMoon function below.
 	static int journeyToMoon(int n, int[][] astronaut) {
-		HashMap<Integer, Integer> t = new HashMap<>();
-		int uniqueCountry = 0;
-
-		for(int i = 0; i<n; i++){
-			//simulating these people?
-			t.put(i, i);
+		//dfs approach
+		boolean[] visited = new boolean[n];
+		ArrayList<Integer>[] connections = new ArrayList[n];
+		for(int i = 0; i< n; i++){
+			connections[i]= new ArrayList<Integer>();
 		}
-		for (int[] twoEleme : astronaut) {
-			t.replace(twoEleme[0], Math.min(twoEleme[0], twoEleme[1]));
-			t.replace(twoEleme[1], Math.min(twoEleme[0], twoEleme[1]));
-		}
-		HashMap<Integer, ArrayList<Integer>> vals= new HashMap<>();
-		for(int k: t.keySet()){
-			if(vals.containsKey(t.get(k))){
-				ArrayList<Integer> mp = vals.get(t.get(k));
-				mp.add(k);
-			}else{
-				ArrayList<Integer> mp = new ArrayList<>();
-				mp.add(k);
-				vals.put(t.get(k),mp);
+		for(int i = 0; i< astronaut.length; i++){
+			connections[astronaut[i][0]].add(astronaut[i][1]);
+			connections[astronaut[i][1]].add(astronaut[i][0]);
+		}//adding connections (no care about intermediate connections)
+		long sum= 0;
+		for(int i = 0; i< n; i++){
+			if(!visited[i]){
+				Queue<Integer> dfsgrouper = new LinkedList<>();
+				dfsgrouper.add(i); HashSet<Integer> uniqueSpots = new HashSet<>();
+				while(!dfsgrouper.isEmpty()){
+					Integer p = dfsgrouper.poll();
+					if(!visited[p]){
+						uniqueSpots.add(p);
+						dfsgrouper.addAll(connections[p]);
+						visited[p]= true;
+					}
+				}
+				sum += ((long) uniqueSpots.size() * (n - uniqueSpots.size()));
+				System.out.println(uniqueSpots.size());
 			}
 		}
-		int valans[] = new int[vals.keySet().size()];
-		int i = 0;
-		for(int k: vals.keySet()){
-			valans[i] = vals.get(k).size();
-			i++;
-		}
-		long combos = 0 ;
-		for(int p = 0; p< valans.length-1; p++){
-			for(int pk = p+1; pk< valans.length; pk++){
-				combos+= (long) valans[p] * valans[pk];
-			}
-		}
-		return (int)combos;
+		return (int)sum/2;
 
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
-
 
 		String[] np = scanner.nextLine().split(" ");
 
@@ -66,7 +59,7 @@ public class Solution {
 			String[] astronautRowItems = scanner.nextLine().split(" ");
 
 			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-			System.out.println("hello");
+
 			for (int j = 0; j < 2; j++) {
 				int astronautItem = Integer.parseInt(astronautRowItems[j]);
 				astronaut[i][j] = astronautItem;
@@ -74,7 +67,7 @@ public class Solution {
 		}
 
 		int result = journeyToMoon(n, astronaut);
-
+		System.out.println(result);
 
 
 		scanner.close();
