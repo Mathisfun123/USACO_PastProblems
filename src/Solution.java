@@ -1,74 +1,71 @@
 import java.io.*;
-import java.lang.reflect.Array;
 import java.math.*;
 import java.security.*;
 import java.text.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.*;
 import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
+class Result {
 
-public class Solution {
+	/*
+	 * Complete the 'stockmax' function below.
+	 *
+	 * The function is expected to return a LONG_INTEGER.
+	 * The function accepts INTEGER_ARRAY prices as parameter.
+	 */
 
-	// Complete the journeyToMoon function below.
-	static int journeyToMoon(int n, int[][] astronaut) {
-		//dfs approach
-		boolean[] visited = new boolean[n];
-		ArrayList<Long>[] connections = new ArrayList[n];
-		for(int i = 0; i< n; i++){
-			connections[i]= new ArrayList<Long>();
+	public static long stockmax(List<Integer> prices) {
+		// Write your code here
+		int n = prices.size();
+		long prefixMax[] = new long[n]; prefixMax[n-1] = prices.get(n-1);
+		for(int i = n-2; i>=0 ; i--){
+			prefixMax[i] = Math.max(prefixMax[i+1],prices.get(i));
 		}
-		for(int i = 0; i< astronaut.length; i++){
-			connections[astronaut[i][0]].add((long) astronaut[i][1]);
-			connections[astronaut[i][1]].add((long) astronaut[i][0]);
-		}//adding connections (no care about intermediate connections)
-		long sum= 0;
-		for(long i = 0; i< n; i++){
-			if(!visited[(int) i]){
-				Queue<Long> dfsgrouper = new LinkedList<>();
-				dfsgrouper.add(i); HashSet<Long> uniqueSpots = new HashSet<>();
-				while(!dfsgrouper.isEmpty()){
-					Long p = dfsgrouper.poll();
-					if(!visited[(int) i]){
-						uniqueSpots.add(p);
-						dfsgrouper.addAll(connections[Math.toIntExact(p)]);
-						visited[Math.toIntExact(p)]= true;
-					}
-				}
-				sum += ((long) uniqueSpots.size() * (n - uniqueSpots.size()));
+		long sum = 0; long stonks = 0;
+		for(int i = 0; i< n; i++){
+			if(prices.get(i)<prefixMax[i] && i!=n-1){
+				sum-= prices.get(i);
+				stonks++;
+			}else if(prices.get(i)==prefixMax[i]){
+				sum+= (stonks * prefixMax[i]);
+				stonks=0;
 			}
 		}
-		return (int)sum/2;
-
+		return sum;
 	}
 
-	private static final Scanner scanner = new Scanner(System.in);
+}
 
+public class Solution {
 	public static void main(String[] args) throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-		String[] np = scanner.nextLine().split(" ");
+		int t = Integer.parseInt(bufferedReader.readLine().trim());
 
-		int n = Integer.parseInt(np[0]);
+		IntStream.range(0, t).forEach(tItr -> {
+			try {
+				int n = Integer.parseInt(bufferedReader.readLine().trim());
 
-		int p = Integer.parseInt(np[1]);
+				List<Integer> prices = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+						.map(Integer::parseInt)
+						.collect(toList());
 
-		int[][] astronaut = new int[p][2];
+				long result = Result.stockmax(prices);
 
-		for (int i = 0; i < p; i++) {
-			String[] astronautRowItems = scanner.nextLine().split(" ");
-
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-			for (int j = 0; j < 2; j++) {
-				int astronautItem = Integer.parseInt(astronautRowItems[j]);
-				astronaut[i][j] = astronautItem;
+				bufferedWriter.write(String.valueOf(result));
+				bufferedWriter.newLine();
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
 			}
-		}
+		});
 
-		int result = journeyToMoon(n, astronaut);
-		System.out.println(result);
-
-
-		scanner.close();
+		bufferedReader.close();
+		bufferedWriter.close();
 	}
 }
