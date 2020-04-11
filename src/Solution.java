@@ -14,29 +14,28 @@ public class Solution {
 	static int journeyToMoon(int n, int[][] astronaut) {
 		//dfs approach
 		boolean[] visited = new boolean[n];
-		ArrayList<Integer>[] connections = new ArrayList[n];
+		ArrayList<Long>[] connections = new ArrayList[n];
 		for(int i = 0; i< n; i++){
-			connections[i]= new ArrayList<Integer>();
+			connections[i]= new ArrayList<Long>();
 		}
 		for(int i = 0; i< astronaut.length; i++){
-			connections[astronaut[i][0]].add(astronaut[i][1]);
-			connections[astronaut[i][1]].add(astronaut[i][0]);
+			connections[astronaut[i][0]].add((long) astronaut[i][1]);
+			connections[astronaut[i][1]].add((long) astronaut[i][0]);
 		}//adding connections (no care about intermediate connections)
 		long sum= 0;
-		for(int i = 0; i< n; i++){
-			if(!visited[i]){
-				Queue<Integer> dfsgrouper = new LinkedList<>();
-				dfsgrouper.add(i); HashSet<Integer> uniqueSpots = new HashSet<>();
+		for(long i = 0; i< n; i++){
+			if(!visited[(int) i]){
+				Queue<Long> dfsgrouper = new LinkedList<>();
+				dfsgrouper.add(i); HashSet<Long> uniqueSpots = new HashSet<>();
 				while(!dfsgrouper.isEmpty()){
-					Integer p = dfsgrouper.poll();
-					if(!visited[p]){
+					Long p = dfsgrouper.poll();
+					if(!visited[(int) i]){
 						uniqueSpots.add(p);
-						dfsgrouper.addAll(connections[p]);
-						visited[p]= true;
+						dfsgrouper.addAll(connections[Math.toIntExact(p)]);
+						visited[Math.toIntExact(p)]= true;
 					}
 				}
 				sum += ((long) uniqueSpots.size() * (n - uniqueSpots.size()));
-				System.out.println(uniqueSpots.size());
 			}
 		}
 		return (int)sum/2;
