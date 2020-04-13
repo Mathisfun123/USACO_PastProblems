@@ -8,10 +8,43 @@ import java.util.*;
 public class TestClass {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		PriorityQueue <CompareInts> vals = new PriorityQueue<>();
-		vals.add(new CompareInts(1)); vals.add(new CompareInts(2));
-		System.out.println(vals.poll());
-
+		Scanner sc = new Scanner(new File("berries.in"));
+		while(sc.hasNextLine()){
+			int n = sc.nextInt();
+			Stack<Integer> stack = new Stack<>(); boolean isStack = true;
+			Queue<Integer> queue = new LinkedList<>(); boolean isQueue = true;
+			PriorityQueue<CompareInts> priorityQueue = new PriorityQueue<>(); boolean isPriority = true;
+			for(int i = 0; i< n; i++){
+				int a = sc.nextInt(); int b = sc.nextInt();
+				if(a==1){
+					stack.add(b);
+					queue.add(b) ;
+					priorityQueue.add(new CompareInts(b));
+				}else{
+					if(stack.size()==0 || b!=stack.pop()) {
+						isStack = false;
+					}
+					if(queue.size()==0 || b!= queue.remove()){
+						isQueue= false;
+					}
+					if(priorityQueue.size()==0|| b!= Objects.requireNonNull(priorityQueue.poll()).val){
+						isPriority=false;
+					}
+				}
+			}
+			if(!isStack && !isQueue && !isPriority){
+				System.out.println("impossible");
+			}else if(!isStack && !isQueue){
+				System.out.println("priority queue");
+			}else if(!isQueue && !isPriority){
+				System.out.println("stack");
+			}else if(!isStack &&!isPriority){
+				System.out.println("queue");
+			}else{
+				System.out.println("not sure");
+			}
+			sc.nextLine();
+		}
 
 
 

@@ -1,14 +1,13 @@
 package RandomFiles;
 
 import java.util.*;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class ClassConfusion {
 	static ArrayList<Integer>[] map;
 	public static void main(String[] args){
 		map = new ArrayList[6];
 		for(int i = 0; i< 6; i++){
-			map[i] = new ArrayList<Integer>();
+			map[i] = new ArrayList<>();
 		}
 		map[0].add(1); map[1].add(0);
 		map[1].add(3); map[3].add(1);
@@ -46,11 +45,8 @@ public class ClassConfusion {
 		}
 		flag[X]= true;
 		cost+=1;
-		Iterator<Integer> i = map[X].iterator();
-		while (i.hasNext())
-		{
-			int next = i.next();
-			if (!flag[next])  {
+		for (int next : map[X]) {
+			if (!flag[next]) {
 				t.add(next);
 			}
 		}
