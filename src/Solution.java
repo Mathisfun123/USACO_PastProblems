@@ -1,71 +1,36 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
+import java.io.File;
+import java.util.Scanner;
 
-class Result {
-
-	/*
-	 * Complete the 'stockmax' function below.
-	 *
-	 * The function is expected to return a LONG_INTEGER.
-	 * The function accepts INTEGER_ARRAY prices as parameter.
-	 */
-
-	public static long stockmax(List<Integer> prices) {
-		// Write your code here
-		int n = prices.size();
-		long prefixMax[] = new long[n]; prefixMax[n-1] = prices.get(n-1);
-		for(int i = n-2; i>=0 ; i--){
-			prefixMax[i] = Math.max(prefixMax[i+1],prices.get(i));
-		}
-		long sum = 0; long stonks = 0;
+public class Solution{
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int n =sc.nextInt(); sc.nextLine();
 		for(int i = 0; i< n; i++){
-			if(prices.get(i)<prefixMax[i] && i!=n-1){
-				sum-= prices.get(i);
-				stonks++;
-			}else if(prices.get(i)==prefixMax[i]){
-				sum+= (stonks * prefixMax[i]);
-				stonks=0;
+			String[] ln = sc.nextLine().split(" "); int kids = Integer.parseInt(ln[0]); String ans = ln[1];
+			for(int j = 0; j< kids; j++){
+				String ln2[] = sc.nextLine().split(" ");
+				double amt = 0;
+				for(int k = 0; k< ans.length(); k++){
+					if(ln2[1].charAt(k) == ans.charAt(k)){
+						amt++;
+					}
+				}
+				System.out.println(ln2[0] + String.format(" %.1f",(100* amt/ans.length()))+"% "+ gradeResul(100*amt/ans.length()));
+
 			}
 		}
-		return sum;
 	}
-
-}
-
-public class Solution {
-	public static void main(String[] args) throws IOException {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-
-		int t = Integer.parseInt(bufferedReader.readLine().trim());
-
-		IntStream.range(0, t).forEach(tItr -> {
-			try {
-				int n = Integer.parseInt(bufferedReader.readLine().trim());
-
-				List<Integer> prices = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-						.map(Integer::parseInt)
-						.collect(toList());
-
-				long result = Result.stockmax(prices);
-
-				bufferedWriter.write(String.valueOf(result));
-				bufferedWriter.newLine();
-			} catch (IOException ex) {
-				throw new RuntimeException(ex);
-			}
-		});
-
-		bufferedReader.close();
-		bufferedWriter.close();
+	public static String gradeResul(double val){
+		if(val>=90){
+			return "A";
+		}else if(val>=80){
+			return "B";
+		}else if(val>=70){
+			return "C";
+		}else if(val>=60){
+			return  "D";
+		}else{
+			return "F";
+		}
 	}
 }

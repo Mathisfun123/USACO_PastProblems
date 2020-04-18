@@ -11,7 +11,7 @@ public class moop {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File("Mar_2020_NP.moop" + ".in"));
 		int n = sc.nextInt();
-		Pair arr[] = new Pair[n];
+		Pair[] arr = new Pair[n];
 		for(int i = 0; i< n; i++){
 			arr[i] = new Pair(sc.nextInt(), sc.nextInt());
 		}
