@@ -18,6 +18,7 @@ public class swap2k {
 			int b = sc.nextInt()-1;
 			reverse(a, b);
 		}
+
 		int [] valuest = new int[k+1];
 		for(int i = 0; i< n; i++){
 			if(redirect[i]==i){
