@@ -5,6 +5,7 @@ public class Kattis {
 	public static void main(String[] args)  {
 		Scanner sc = new Scanner(System.in);
 		int n= 50;
+
 		while(sc.hasNextLine() && n!=0) {
 			n = Integer.parseInt(sc.nextLine());
 			if(n!=0) {
